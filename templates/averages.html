@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Average Student Grade</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f4f9; color: #333; }
+    header { background: #4a90e2; color: white; padding: 20px; text-align: center; }
+    nav a { margin: 0 15px; color: white; text-decoration: none; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    main { padding: 40px; max-width: 600px; margin: auto; }
+    table { width: 100%; border-collapse: collapse; background: white; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+    th { background: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Average Student Grade</h1>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('students_page') }}">Students</a>
+    </nav>
+  </header>
+  <main>
+    {% if averages %}
+      <table>
+        <tr><th>Student Name</th><th>Average Grade</th></tr>
+        {% for item in averages %}
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>
+              {% if item.average is not none %}
+                {{ "%.2f"|format(item.average) }}
+              {% else %}
+                No grades yet
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>No students added yet.</p>
+    {% endif %}
+  </main>
+</body>
+</html>
